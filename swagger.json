@@ -7,13 +7,26 @@
   },
   "basePath": "/api/v1",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/hello": {
       "get": {
         "summary": "Says hello world.",
         "description": "Optional extended description in Markdown.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cities": {
+      "get": {
+        "summary": "Get all available cities",
         "produces": [
           "application/json"
         ],

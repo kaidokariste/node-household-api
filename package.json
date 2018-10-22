@@ -5,7 +5,8 @@
   "main": "main.js",
   "dependencies": {
     "express": "^4.16.4",
-    "swagger-ui-express": "^4.0.1"
+    "swagger-ui-express": "^4.0.1",
+    "mongoose": "^5.3.5"
   },
   "engines": {
     "node": "8.11.4"
