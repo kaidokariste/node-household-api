@@ -6,7 +6,6 @@ const express = require('express')
     , http = require('http')
     , path = require('path');
 
-//const port = 3000;
 const app = express();
 
 app.get('/api/v1/hello', (req, res) => res.send({'Response':'Hello World!'}));
