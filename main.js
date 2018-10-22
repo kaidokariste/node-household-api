@@ -1,14 +1,16 @@
 const express = require('express'),
-      router = express.Router(),
-      swaggerUi = require('swagger-ui-express'),
-      swaggerDocument = require('./swagger.json'),
-      url = require('url'),
-      http = require('http'),
-      path = require('path');
+    router = express.Router(),
+    swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./swagger.json'),
+    routerBasic = require('./routers/basic'),
+    http = require('http');
+
 
 const app = express();
 
-app.get('/api/v1/hello', (req, res) => res.send({'Response':'Hello World!'}));
+router.route('/hello')
+    .get(routerBasic.getHelloMessage);
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', router);
 
