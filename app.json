@@ -1,0 +1,5 @@
+{
+  "name":"NodeJS houshold cost API",
+  "description": "Api to get some houshold costs in Estonia cities",
+  "repository": "https://github.com/kaidokariste/node-household-api"
+}
