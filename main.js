@@ -2,14 +2,13 @@ const express = require('express'),
       router = express.Router(),
       swaggerUi = require('swagger-ui-express'),
       swaggerDocument = require('./swagger.json'),
-      cors = require('cors'),
       url = require('url'),
       http = require('http'),
       path = require('path');
 
 const app = express();
 
-app.get('/api/v1/hello', cors(), (req, res) => res.send({'Response':'Hello World!'}));
+app.get('/api/v1/hello', (req, res) => res.send({'Response':'Hello World!'}));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', router);
 
