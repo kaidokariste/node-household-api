@@ -12,8 +12,18 @@
   "paths": {
     "/hello": {
       "get": {
-        "summary": "Says hello world.",
-        "description": "Optional extended description in Markdown.",
+        "summary": "Endpoint for development purpose",
+        "description": "Says 'Hello' to whole world or greets you personally.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "user",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Who wants to get personal Greeting!"
+          }
+        ],
         "produces": [
           "application/json"
         ],

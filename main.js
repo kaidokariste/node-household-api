@@ -5,7 +5,6 @@ const express = require('express'),
     routerBasic = require('./routers/basic'),
     routerCity = require('./routers/city'),
     mongoose = require('mongoose'),
-
     http = require('http');
 
 const app = express();
