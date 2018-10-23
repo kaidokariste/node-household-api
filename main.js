@@ -3,23 +3,13 @@ const express = require('express'),
     swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json'),
     routerBasic = require('./routers/basic'),
-    routerCity = require('./routers/city')
+    routerCity = require('./routers/city'),
     mongoose = require('mongoose'),
 
     http = require('http');
 
 const app = express();
 
-let citySchema = new mongoose.Schema({
-    townName: String,
-    currentPopulation: Number
-});
-
-let City = mongoose.model('cities', citySchema);
-
-let getCities = function (request, response) {
-    routerCity.list(City, response);
-}
 
 //Connection to mongo
 mongoose.connect('mongodb://'+ process.env.MONGO_USERNAME +':'+ process.env.MONGO_PASSW + '@'+ process.env.MONGO_SERVER +':27035/'+ process.env.MONGO_DB +'', {useNewUrlParser: true});
@@ -32,7 +22,7 @@ router.route('/hello')
     .get(routerBasic.getHelloMessage);
 
 router.route('/cities')
-    .get(getCities);
+    .get(routerCity.getCities);
 
 //In main route, show swagger documentation page
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
