@@ -3,13 +3,36 @@
   "info": {
     "title": "Household API",
     "description": "API description in Markdown.",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "basePath": "/api/v1",
   "schemes": [
     "https"
   ],
   "paths": {
+    "/authenticate": {
+      "post": {
+        "summary": "Require authentication token",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/hello": {
       "get": {
         "summary": "Endpoint for development purpose",
@@ -36,6 +59,11 @@
     },
     "/cities": {
       "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "Get all available cities",
         "produces": [
           "application/json"
@@ -46,6 +74,30 @@
           }
         }
       }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "name",
+        "password"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
     }
   }
 }
