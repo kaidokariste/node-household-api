@@ -65,3 +65,4 @@ exports.authenticate = function (model, req, res) {
         }
     });
 }
+

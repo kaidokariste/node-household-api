@@ -74,6 +74,37 @@
           }
         }
       }
+    },
+    "/payments":{
+      "post":{
+        "summary": "Insert new monthly payment to database",
+        "description": "Post new monthly payment",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "payment",
+            "in": "body",
+            "description": "Payment information",
+            "schema": {
+              "$ref": "#/definitions/Payment"
+            }
+          }],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New payment added",
+            "schema": {
+              "$ref": "#/definitions/Payment"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -89,6 +120,98 @@
         },
         "password": {
           "type": "string"
+        }
+      }
+    },
+    "Payment":{
+      "type":"object",
+      "properties":{
+        "address":{
+          "$ref":"#/definitions/Address"
+        },
+        "paymentDate":{
+          "$ref":"#/definitions/PaymentDate"
+        },
+        "paymentDetails":{
+          "$ref":"#/definitions/PaymentDetails"
+        }
+      }
+    },
+    "Address":{
+      "type":"object",
+      "properties":{
+        "city":{
+          "type": "string"
+        },
+        "county":{
+          "type": "string"
+        },
+        "district":{
+          "type": "string"
+        },
+        "street":{
+          "type": "string"
+        },
+        "houseNumber":{
+          "type": "string"
+        },
+        "houseType":{
+          "type": "string"
+        }
+      }
+    },
+    "PaymentDate":{
+      "type":"object",
+      "properties":{
+        "year":{
+          "type": "string"
+        },
+        "month":{
+          "type": "string"
+        },
+        "season":{
+          "type": "string"
+        }
+      }
+    },
+    "PaymentDetails":{
+      "type": "object",
+      "properties":{
+        "centralHeating":{
+          "type": "number"
+        },
+        "waterHeating":{
+          "type": "number"
+        },
+        "waterConsumption":{
+          "type": "number"
+        },
+        "gas":{
+          "type": "number"
+        },
+        "garbageCollection":{
+          "type": "number"
+        },
+        "overallElectricity":{
+          "type": "number"
+        },
+        "renovationFund":{
+          "type": "number"
+        },
+        "administrationFee":{
+          "type": "number"
+        },
+        "loanMonthlyPayment":{
+          "type": "number"
+        },
+        "insurance":{
+          "type": "number"
+        },
+        "janitor":{
+          "type": "number"
+        },
+        "total":{
+          "type": "number"
         }
       }
     }

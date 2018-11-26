@@ -4,6 +4,7 @@ const express = require('express'),
     swaggerDocument = require('./swagger.json'),
     routerBasic = require('./routers/basic'),
     routerCity = require('./routers/city'),
+    routerPayment = require('./routers/payment'),
     mongoose = require('mongoose'),
     http = require('http'),
     morgan = require('morgan'),
@@ -79,6 +80,9 @@ router.route('/users')
 
 router.route('/cities')
     .get(routerCity.getCities);
+
+router.route('/payments')
+    .post(routerPayment.postPayment);
 
 
 //In main route, show swagger documentation page
