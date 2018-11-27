@@ -6,12 +6,29 @@
     "version": "1.2.0"
   },
   "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Authorization",
+      "description":"Get access token for protected endpoints"
+    },
+    {
+      "name": "Cities",
+      "description":"Everything about available cities"
+    },
+    {
+      "name": "Payments",
+      "description":"Everything about monthly payments"
+    }
+  ],
   "schemes": [
     "https"
   ],
   "paths": {
     "/authenticate": {
       "post": {
+        "tags":[
+          "Authorization"
+        ],
         "summary": "Require authentication token",
         "parameters": [
           {
@@ -59,6 +76,9 @@
     },
     "/cities": {
       "get": {
+        "tags":[
+          "Cities"
+        ],
         "security": [
           {
             "Bearer": []
@@ -75,8 +95,11 @@
         }
       }
     },
-    "/payments":{
-      "post":{
+    "/payments": {
+      "post": {
+        "tags":[
+          "Payments"
+        ],
         "summary": "Insert new monthly payment to database",
         "description": "Post new monthly payment",
         "security": [
@@ -92,16 +115,20 @@
             "schema": {
               "$ref": "#/definitions/Payment"
             }
-          }],
+          }
+        ],
         "produces": [
           "application/json"
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "New payment added",
             "schema": {
               "$ref": "#/definitions/Payment"
             }
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -123,94 +150,94 @@
         }
       }
     },
-    "Payment":{
-      "type":"object",
-      "properties":{
-        "address":{
-          "$ref":"#/definitions/Address"
-        },
-        "paymentDate":{
-          "$ref":"#/definitions/PaymentDate"
-        },
-        "paymentDetails":{
-          "$ref":"#/definitions/PaymentDetails"
-        }
-      }
-    },
-    "Address":{
-      "type":"object",
-      "properties":{
-        "city":{
-          "type": "string"
-        },
-        "county":{
-          "type": "string"
-        },
-        "district":{
-          "type": "string"
-        },
-        "street":{
-          "type": "string"
-        },
-        "houseNumber":{
-          "type": "string"
-        },
-        "houseType":{
-          "type": "string"
-        }
-      }
-    },
-    "PaymentDate":{
-      "type":"object",
-      "properties":{
-        "year":{
-          "type": "string"
-        },
-        "month":{
-          "type": "string"
-        },
-        "season":{
-          "type": "string"
-        }
-      }
-    },
-    "PaymentDetails":{
+    "Payment": {
       "type": "object",
-      "properties":{
-        "centralHeating":{
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "paymentDate": {
+          "$ref": "#/definitions/PaymentDate"
+        },
+        "paymentDetails": {
+          "$ref": "#/definitions/PaymentDetails"
+        }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "county": {
+          "type": "string"
+        },
+        "district": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "houseNumber": {
+          "type": "string"
+        },
+        "houseType": {
+          "type": "string"
+        }
+      }
+    },
+    "PaymentDate": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "string"
+        },
+        "month": {
+          "type": "string"
+        },
+        "season": {
+          "type": "string"
+        }
+      }
+    },
+    "PaymentDetails": {
+      "type": "object",
+      "properties": {
+        "centralHeating": {
           "type": "number"
         },
-        "waterHeating":{
+        "waterHeating": {
           "type": "number"
         },
-        "waterConsumption":{
+        "waterConsumption": {
           "type": "number"
         },
-        "gas":{
+        "gas": {
           "type": "number"
         },
-        "garbageCollection":{
+        "garbageCollection": {
           "type": "number"
         },
-        "overallElectricity":{
+        "overallElectricity": {
           "type": "number"
         },
-        "renovationFund":{
+        "renovationFund": {
           "type": "number"
         },
-        "administrationFee":{
+        "administrationFee": {
           "type": "number"
         },
-        "loanMonthlyPayment":{
+        "loanMonthlyPayment": {
           "type": "number"
         },
-        "insurance":{
+        "insurance": {
           "type": "number"
         },
-        "janitor":{
+        "janitor": {
           "type": "number"
         },
-        "total":{
+        "total": {
           "type": "number"
         }
       }
