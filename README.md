@@ -2,6 +2,9 @@
 ### Node > JWT authorization
 Was implemented using this good tutorial: [Authenticate Node.js api with json web tokens](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens)
 
+### Node > Endpoints tutorials
+[CRUD Operations with Mongoose](https://coursework.vschool.io/mongoose-crud/)
+
 ### Heroku > Deployment trough Heroku CLI 
 **Initial deployment**
 
