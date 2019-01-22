@@ -20,7 +20,7 @@ exports.list = function (model, response) {
 exports.sayHello = function (req, res) {
     let get_params = url.parse(req.url, true).query;
 
-    if (Object.keys(get_params).length == 0) {
+    if (Object.keys(get_params).length === 0) {
         res.send({'Response': 'Hello World!'});
     }
     else {
@@ -66,3 +66,15 @@ exports.authenticate = function (model, req, res) {
     });
 }
 
+//Delete item
+exports.delete = function (model, searchObject, req, res) {
+    model.deleteOne(searchObject, err => {
+         if (!err) {
+             // HTTP - 202 Accepted
+             return res.status(202).end();
+         } else {
+             console.log(err);
+             return res.sendStatus(500);
+         }
+    });
+}

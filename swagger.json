@@ -74,7 +74,7 @@
         }
       }
     },
-    "/cities": {
+    "/cities/": {
       "get": {
         "tags":[
           "Cities"
@@ -90,7 +90,41 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/City"
+            }
+          }
+        }
+      }
+    },
+    "/cities/{townCode}": {
+      "delete": {
+        "tags":[
+          "Cities"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Delete city using city code",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "townCode",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Delete City by town code"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
           }
         }
       }
@@ -137,15 +171,32 @@
   "definitions": {
     "User": {
       "required": [
-        "name",
+        "username",
         "password"
       ],
       "properties": {
-        "name": {
+        "username": {
           "type": "string",
           "uniqueItems": true
         },
         "password": {
+          "type": "string"
+        }
+      }
+    },
+    "City":{
+      "required":[
+        "townCode",
+        "townName"
+      ],
+      "properties": {
+        "townCode":{
+          "type": "string"
+        },
+        "townName":{
+          "type": "string"
+        },
+        "currentPopulation":{
           "type": "string"
         }
       }

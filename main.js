@@ -17,11 +17,11 @@ const app = express();
 //==================
 //Configuration
 //==================
-mongoose.connect('mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.MONGO_PASSW + '@' + process.env.MONGO_SERVER + ':27035/' + process.env.MONGO_DB + '', {useNewUrlParser: true});
-var db = mongoose.connection;
-db.once('open', function () {
-    console.log('MongoDB connection successful.');
-});
+// Connect to MongoDB using promises
+mongoose.connect('mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.MONGO_PASSW + '@' + process.env.MONGO_SERVER + ':27035/' + process.env.MONGO_DB + '', {useNewUrlParser: true})
+    .then(()=> console.log('MongoDB connection successful.'))
+    .catch( err => console.error('Connection failed', err));
+
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({extended: false}));
@@ -35,7 +35,7 @@ app.use(morgan('dev'));
 
 // TODO: route to authenticate a user (POST http://localhost:8080/api/authenticate)
 router.route('/authenticate')
-    .post(routerCity.getAuthenticationToken);
+    .post(routerBasic.getAuthenticationToken);
 
 router.route('/hello')
     .get(routerBasic.getHelloMessage);
@@ -76,7 +76,7 @@ router.use(function (req, res, next) {
 
 
 router.route('/users')
-    .get(routerCity.getUsers);
+    .get(routerBasic.getUsers);
 
 router.route('/cities')
     .get(routerCity.getCities);
@@ -84,6 +84,8 @@ router.route('/cities')
 router.route('/payments')
     .post(routerPayment.postPayment);
 
+router.route('/cities/:townCode')
+    .delete(routerCity.deleteCity);
 
 //In main route, show swagger documentation page
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
