@@ -2,9 +2,7 @@ const express = require('express'),
     router = express.Router(),
     swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json'),
-    routerBasic = require('./routers/basic'),
-    routerCity = require('./routers/city'),
-    routerPayment = require('./routers/payment'),
+    apiRouter = require('./routers'),
     mongoose = require('mongoose'),
     http = require('http'),
     morgan = require('morgan'),
@@ -22,7 +20,6 @@ mongoose.connect('mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.M
     .then(()=> console.log('MongoDB connection successful.'))
     .catch( err => console.error('Connection failed', err));
 
-
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -35,10 +32,10 @@ app.use(morgan('dev'));
 
 // TODO: route to authenticate a user (POST http://localhost:8080/api/authenticate)
 router.route('/authenticate')
-    .post(routerBasic.getAuthenticationToken);
+    .post(apiRouter.Basic.getAuthenticationToken);
 
 router.route('/hello')
-    .get(routerBasic.getHelloMessage);
+    .get(apiRouter.Basic.getHelloMessage);
 
 //route middleware to verify a token
 router.use(function (req, res, next) {
@@ -65,27 +62,23 @@ router.use(function (req, res, next) {
             }
         });
     } else {
-        // if there is no token
-        // return an error
-        return res.status(403).send({
-            success: false,
-            message: 'No token provided.'
-        });
+        // if there is no token return an HTTP 403 - Forbidden
+        return res.status(403).send({ success: false, message: 'No token provided.'});
     }
 });
 
 
 router.route('/users')
-    .get(routerBasic.getUsers);
+    .get(apiRouter.Basic.getUsers);
 
 router.route('/cities')
-    .get(routerCity.getCities);
+    .get(apiRouter.City.getCities);
 
 router.route('/payments')
-    .post(routerPayment.postPayment);
+    .post(apiRouter.Payment.postPayment);
 
 router.route('/cities/:townCode')
-    .delete(routerCity.deleteCity);
+    .delete(apiRouter.City.deleteCity);
 
 //In main route, show swagger documentation page
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
