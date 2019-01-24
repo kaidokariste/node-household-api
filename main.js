@@ -1,16 +1,13 @@
-const express = require('express'),
+const
+    express = require('express'),
+    config = require('./configure'),
     router = express.Router(),
-    swaggerUi = require('swagger-ui-express'),
-    swaggerDocument = require('./swagger.json'),
     apiRouter = require('./routers'),
     mongoose = require('mongoose'),
     http = require('http'),
-    morgan = require('morgan'),
-    bodyParser = require('body-parser'),
-    jwt = require('jsonwebtoken'); //used to create, sign and verify tokens
+    jwt = require('jsonwebtoken') //used to create, sign and verify tokens
+    app = express();
 
-
-const app = express();
 
 //==================
 //Configuration
@@ -20,11 +17,8 @@ mongoose.connect('mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.M
     .then(()=> console.log('MongoDB connection successful.'))
     .catch( err => console.error('Connection failed', err));
 
-// use body parser so we can get info from POST and/or URL parameters
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-// use morgan to log requests to the console
-app.use(morgan('dev'));
+app = config(app);
+app.use('/api/v1', router);
 
 //=================
 //Routing
@@ -80,8 +74,5 @@ router.route('/payments')
 router.route('/cities/:townCode')
     .delete(apiRouter.City.deleteCity);
 
-//In main route, show swagger documentation page
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/api/v1', router);
-
+//Create server
 http.createServer(app).listen(process.env.PORT, () => console.log(`Example app listening on port ${process.env.PORT}!`));
