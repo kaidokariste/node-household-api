@@ -3,7 +3,7 @@
   "info": {
     "title": "Household API",
     "description": "API description in Markdown.",
-    "version": "1.2.0"
+    "version": "1.3.0"
   },
   "basePath": "/api/v1",
   "tags": [
