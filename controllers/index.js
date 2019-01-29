@@ -3,8 +3,9 @@ const
     jwt = require('jsonwebtoken'); //used to create, sign and verify tokens
 
 // Handler for HTTP GET all
+// We don't pass database ID with requests
 exports.list = function (model, response) {
-    model.find({}, function (error, result) {
+    model.find({},{ _id: 0 }, function (error, result) {
         if (error) {
             console.error(error);
             return null;

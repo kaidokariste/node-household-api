@@ -26,4 +26,11 @@ function postPayment(req, res) {
     });
 }
 
+// Router for HTTP DELETE - "/payment/:townName"
+exports.deletePayment = function(req, res){
+    //let propertyValue = req.params.townCode;
+    //let searchObject = {townCode : propertyValue}
+    //ontroller.delete(model.City, searchObject, req, res);
+}
+
 module.exports.postPayment = postPayment;
