@@ -29,7 +29,9 @@ router.route('/authenticate')
     .post(apiRouter.Basic.getAuthenticationToken);
 
 router.route('/hello')
-    .get(apiRouter.Basic.getHelloMessage);
+    .get(apiRouter.Basic.getHelloMessage)
+    .post(apiRouter.Basic.postHelloMessage)
+
 
 //route middleware to verify a token
 router.use(function (req, res, next) {
