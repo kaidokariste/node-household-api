@@ -6,6 +6,7 @@ exports.getHelloMessage = function(req,res) {
 
 exports.postHelloMessage = function(req,res){
     let returnRequest = JSON.stringify(req.body);
+    console.log(returnRequest)
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end(returnRequest);
 }
