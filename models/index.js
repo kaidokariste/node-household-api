@@ -7,33 +7,35 @@
 mongoose = require('mongoose')
 
 citySchema = new mongoose.Schema({
-    townCode: String,
     townName: String,
     currentPopulation: Number
+}, {
+    toJSON: {virtuals: true},
+    id: false
 });
 
 userSchema = new mongoose.Schema({
     username: String,
     password: String,
     admin: Boolean,
-    dateCreated: {type:Date, default: Date.now()}
+    dateCreated: {type: Date, default: Date.now()}
 });
 
 paymentSchema = new mongoose.Schema({
     address: {
-        city: {type: String, required: true},
+        town: {type: String, required: true},
         county: {type: String, required: true},
         district: String,
         street: String,
         houseNumber: String,
         houseType: {type: String, required: true}
     },
-    paymentDate:{
+    paymentDate: {
         year: {type: String, required: true},
         month: {type: String, required: true},
         season: {type: String, required: true},
     },
-    paymentDetails:{
+    paymentDetails: {
         centralHeating: Number,
         waterHeating: Number,
         waterConsumption: Number,
@@ -48,6 +50,22 @@ paymentSchema = new mongoose.Schema({
         total: Number
     }
 });
+
+//Example of virtual property. We compose townCode based on the townName
+citySchema.virtual('townCode')
+    .get(function () {
+            switch (this.townName) {
+                case 'Tartu':
+                    return 'TRT';
+                    break;
+                case 'Tallinn':
+                    return 'TLL';
+                    break;
+                default:
+                    return null;
+            }
+        }
+    );
 
 // The first argument is the singular name of the collection in MongoDB your model is for
 exports.City = mongoose.model('cities', citySchema);

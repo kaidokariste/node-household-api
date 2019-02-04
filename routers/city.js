@@ -12,7 +12,7 @@ exports.getCities = function (request, response) {
 
 // Router for HTTP DELETE - "/cities/:townName"
 exports.deleteCity = function(req, res){
-    let propertyValue = req.params.townCode;
-    let searchObject = {townCode : propertyValue}
+    let propertyValue = req.params.townName;
+    let searchObject = {townName : propertyValue}
     controller.delete(model.City, searchObject, req, res);
 }

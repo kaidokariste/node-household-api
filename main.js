@@ -29,7 +29,9 @@ router.route('/authenticate')
     .post(apiRouter.Basic.getAuthenticationToken);
 
 router.route('/hello')
-    .get(apiRouter.Basic.getHelloMessage);
+    .get(apiRouter.Basic.getHelloMessage)
+    .post(apiRouter.Basic.postHelloMessage)
+
 
 //route middleware to verify a token
 router.use(function (req, res, next) {
@@ -69,9 +71,10 @@ router.route('/cities')
     .get(apiRouter.City.getCities);
 
 router.route('/payments')
-    .post(apiRouter.Payment.postPayment);
+    .post(apiRouter.Payment.postPayment)
+    .delete(apiRouter.Payment.deletePayment);
 
-router.route('/cities/:townCode')
+router.route('/cities/:townName')
     .delete(apiRouter.City.deleteCity);
 
 //Create server
